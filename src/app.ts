@@ -22,7 +22,6 @@ class App {
         this.loadInitialData();
         this.initializeApp();
     }
-
     private loadInitialData() {
         const savedBooks = this.storage.getBooks();
         savedBooks.forEach(book =>
@@ -203,7 +202,7 @@ class App {
                 }
 
                 if (isValid && Validation.validateUserInput(nameInput.value, emailInput.value)) {
-                    let newUser = new User(Date.now(), nameInput.value, emailInput.value);
+                    const newUser = new User(Date.now(), nameInput.value, emailInput.value);
                     Array.from(document.getElementById('userBooksList').getElementsByTagName('li'))
                         .map(el => this.storage.getBookById(+el.id) as Book)
                         .forEach(el => this.libraryService.borrowBook(newUser, el));
