@@ -1,27 +1,27 @@
-form{
+form {
     padding: 5px;
 }
 
-.col-md-6>.list-group .list-group-item:hover{
+.col-md-6 > .list-group .list-group-item:hover {
     cursor: pointer;
     color: #721c24;
     background-color: #f5c6cb;
     border-color: #f5c6cb;
 }
-.col-md-6>.list-group .list-group-item:hover .inner-list .list-group-item {
+.col-md-6 > .list-group .list-group-item:hover .inner-list .list-group-item {
     cursor: pointer;
     color: #721c24;
     background-color: #f5c6cb;
     border-color: #f5c6cb;
 }
-.col-md-6>.list-group .list-group-item:hover .inner-list .list-group-item:hover {
+.col-md-6 > .list-group .list-group-item:hover .inner-list .list-group-item:hover {
     cursor: pointer;
     color: #684f04;
     background-color: #f8d66f;
     border-color: #a5997489;
 }
 
-.userNameSpan:hover{
+.userNameSpan:hover {
     color: gray;
 }
 
@@ -35,7 +35,7 @@ form{
     z-index: 999;
 }
 
-#userBooks{
+#userBooks {
     margin-top: 10px;
     margin-bottom: 5px;
 }
@@ -53,4 +53,3 @@ form{
 footer {
     margin-top: 100px;
 }
-  
