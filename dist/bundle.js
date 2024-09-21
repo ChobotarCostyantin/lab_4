@@ -12887,7 +12887,8 @@ module.exports = function (cssWithMappingToString) {
       if (typeof layer !== "undefined") {
         if (typeof item[5] === "undefined") {
           item[5] = layer;
-        } else {
+        }
+ else {
           item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
           item[5] = layer;
         }
@@ -12895,7 +12896,8 @@ module.exports = function (cssWithMappingToString) {
       if (media) {
         if (!item[2]) {
           item[2] = media;
-        } else {
+        }
+ else {
           item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
           item[2] = media;
         }
@@ -12903,7 +12905,8 @@ module.exports = function (cssWithMappingToString) {
       if (supports) {
         if (!item[4]) {
           item[4] = "".concat(supports);
-        } else {
+        }
+ else {
           item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
           item[4] = supports;
         }
@@ -13119,7 +13122,8 @@ function modulesToDom(list, options) {
     if (indexByIdentifier !== -1) {
       stylesInDOM[indexByIdentifier].references++;
       stylesInDOM[indexByIdentifier].updater(obj);
-    } else {
+    }
+ else {
       var updater = addElementStyle(obj, options);
       options.byIndex = i;
       stylesInDOM.splice(i, 0, {
@@ -13141,7 +13145,8 @@ function addElementStyle(obj, options) {
         return;
       }
       api.update(obj = newObj);
-    } else {
+    }
+ else {
       api.remove();
     }
   };
@@ -13194,7 +13199,8 @@ function getTarget(target) {
         // This will throw an exception if access to iframe is blocked
         // due to cross-origin restrictions
         styleTarget = styleTarget.contentDocument.head;
-      } catch (e) {
+      }
+ catch (e) {
         // istanbul ignore next
         styleTarget = null;
       }
@@ -13336,7 +13342,8 @@ module.exports = domAPI;
 function styleTagTransform(css, styleElement) {
   if (styleElement.styleSheet) {
     styleElement.styleSheet.cssText = css;
-  } else {
+  }
+ else {
     while (styleElement.firstChild) {
       styleElement.removeChild(styleElement.firstChild);
     }
@@ -13366,7 +13373,9 @@ var Library = /** @class */ (function () {
     };
     Library.prototype.removeItem = function (item) {
         console.log(this.items, item);
-        this.items = this.items.filter(function (i) { return JSON.stringify(i) != JSON.stringify(item); });
+        this.items = this.items.filter(function (i) {
+ return JSON.stringify(i) != JSON.stringify(item); 
+});
     };
     Library.prototype.updateItem = function (oldItem, newItem) {
         this.removeItem(oldItem);
@@ -13396,7 +13405,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.User = exports.Book = void 0;
 var Book = /** @class */ (function () {
     function Book(id, title, author, year, available) {
-        if (available === void 0) { available = true; }
+        if (available === void 0) {
+ available = true; 
+}
         this.id = id;
         this.title = title;
         this.author = author;
@@ -13451,7 +13462,9 @@ var LibraryService = /** @class */ (function () {
         this.library.removeItem(book);
         var users = this.storage.getUsers();
         users.forEach(function (user) {
-            user.borrowedBooks = user.borrowedBooks.filter(function (b) { return b.id !== book.id; });
+            user.borrowedBooks = user.borrowedBooks.filter(function (b) {
+ return b.id !== book.id; 
+});
         });
         this.storage.saveUsers(users);
         this.storage.saveBooks(this.library.getItems());
@@ -13462,14 +13475,20 @@ var LibraryService = /** @class */ (function () {
     LibraryService.prototype.removeUser = function (user) {
         var books = this.storage.getBooks();
         books.forEach(function (book) {
-            book.available = user.borrowedBooks.find(function (b) { return b.id === book.id; }) ? true : book.available;
+            book.available = user.borrowedBooks.find(function (b) {
+ return b.id === book.id; 
+}) ? true : book.available;
         });
         this.storage.saveBooks(books);
         this.library.updateItems(books);
-        this.storage.saveUsers(this.storage.getUsers().filter(function (u) { return u.id !== user.id; }));
+        this.storage.saveUsers(this.storage.getUsers().filter(function (u) {
+ return u.id !== user.id; 
+}));
     };
     LibraryService.prototype.updateUser = function (oldUser, newUser) {
-        this.storage.saveUsers(__spreadArray([newUser], this.storage.getUsers().filter(function (u) { return u.id !== oldUser.id; }), true));
+        this.storage.saveUsers(__spreadArray([newUser], this.storage.getUsers().filter(function (u) {
+ return u.id !== oldUser.id; 
+}), true));
     };
     LibraryService.prototype.borrowBook = function (user, book) {
         var borrowedBook = structuredClone(book);
@@ -13479,14 +13498,18 @@ var LibraryService = /** @class */ (function () {
         this.storage.saveBooks(this.library.getItems());
     };
     LibraryService.prototype.returnBook = function (user, book) {
-        var index = user.borrowedBooks.findIndex(function (b) { return b.id === book.id; });
+        var index = user.borrowedBooks.findIndex(function (b) {
+ return b.id === book.id; 
+});
         if (index > -1) {
             user.borrowedBooks.splice(index, 1);
             var newBook = structuredClone(book);
             newBook.available = true;
             this.library.updateItem(book, newBook);
             this.storage.saveBooks(this.library.getItems());
-            this.storage.saveUsers(__spreadArray([user], this.storage.getUsers().filter(function (u) { return u.id !== user.id; }), true));
+            this.storage.saveUsers(__spreadArray([user], this.storage.getUsers().filter(function (u) {
+ return u.id !== user.id; 
+}), true));
         }
     };
     LibraryService.prototype.searchBooks = function (query) {
@@ -13497,15 +13520,21 @@ var LibraryService = /** @class */ (function () {
     };
     LibraryService.prototype.renderBookList = function (books, itemsPerPage) {
         if (books.length > 0)
-            return "\n                <h2>\u0421\u043F\u0438\u0441\u043E\u043A \u041A\u043D\u0438\u0433</h2>\n                <ul class=\"list-group\">\n                    ".concat(books.map(function (book) { return "<li title=\"Delete book\" class=\"list-group-item bookList d-flex justify-content-between align-items-center\" bookid=\"".concat(book.id, "\">\n                        ").concat(book.title, " by ").concat(book.author, " (").concat(book.year, ")\n                        <span title=\"Borrow book\" class=\"badge bg-").concat(book.available ? 'success' : 'danger', " rounded-pill borrowButton\">\n                            ").concat(book.available ? 'Доступно' : 'Позичено', "\n                        </span>\n                    </li>"); }).join(''), "\n                </ul>\n            ");
+            return "\n                <h2>\u0421\u043F\u0438\u0441\u043E\u043A \u041A\u043D\u0438\u0433</h2>\n                <ul class=\"list-group\">\n                    ".concat(books.map(function (book) {
+ return "<li title=\"Delete book\" class=\"list-group-item bookList d-flex justify-content-between align-items-center\" bookid=\"".concat(book.id, "\">\n                        ").concat(book.title, " by ").concat(book.author, " (").concat(book.year, ")\n                        <span title=\"Borrow book\" class=\"badge bg-").concat(book.available ? 'success' : 'danger', " rounded-pill borrowButton\">\n                            ").concat(book.available ? 'Доступно' : 'Позичено', "\n                        </span>\n                    </li>"); 
+}).join(''), "\n                </ul>\n            ");
         else
             return this.renderPaginatedBookList(1, itemsPerPage);
     };
     LibraryService.prototype.renderUserList = function () {
         var users = this.storage.getUsers();
-        return "\n            <h2>\u0421\u043F\u0438\u0441\u043E\u043A \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456\u0432</h2>\n            <ul class=\"list-group\">\n                ".concat(users.map(function (user) { return "\n                    <li class=\"list-group-item userList d-flex flex-column align-items-start\" userid=\"".concat(user.id, "\">\n                        <h4>\u0406\u043C'\u044F \u043A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430: <span class=\"userNameSpan\" title=\"Copy user id\">").concat(user.name, "</span></h4>\n                        <h4>\u041F\u043E\u0448\u0442\u0430 \u043A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430: ").concat(user.email, "</h4>\n                        <h5>\u041F\u043E\u0437\u0438\u0447\u0435\u043D\u0456 \u043A\u043D\u0438\u0433\u0438:</h5>\n                        <ul class=\"list-group inner-list\">\n                            ").concat(user.borrowedBooks.length === 0 ?
+        return "\n            <h2>\u0421\u043F\u0438\u0441\u043E\u043A \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456\u0432</h2>\n            <ul class=\"list-group\">\n                ".concat(users.map(function (user) {
+ return "\n                    <li class=\"list-group-item userList d-flex flex-column align-items-start\" userid=\"".concat(user.id, "\">\n                        <h4>\u0406\u043C'\u044F \u043A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430: <span class=\"userNameSpan\" title=\"Copy user id\">").concat(user.name, "</span></h4>\n                        <h4>\u041F\u043E\u0448\u0442\u0430 \u043A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430: ").concat(user.email, "</h4>\n                        <h5>\u041F\u043E\u0437\u0438\u0447\u0435\u043D\u0456 \u043A\u043D\u0438\u0433\u0438:</h5>\n                        <ul class=\"list-group inner-list\">\n                            ").concat(user.borrowedBooks.length === 0 ?
             "<li class=\"list-group-item\">\u041D\u0435\u043C\u0430 \u043F\u043E\u0437\u0438\u0447\u0435\u043D\u0438\u0445 \u043A\u043D\u0438\u0433</li>" :
-            user.borrowedBooks.map(function (book) { return "\n                                    <li class=\"list-group-item userBook\" bookid=\"".concat(book.id, "\">\u041A\u043D\u0438\u0433\u0430: ").concat(book.title, " by ").concat(book.author, "</li>\n                                "); }).join(''), "\n                        </ul>\n                    </li>\n                "); }).join(''), "\n            </ul>\n        ");
+            user.borrowedBooks.map(function (book) {
+ return "\n                                    <li class=\"list-group-item userBook\" bookid=\"".concat(book.id, "\">\u041A\u043D\u0438\u0433\u0430: ").concat(book.title, " by ").concat(book.author, "</li>\n                                "); 
+}).join(''), "\n                        </ul>\n                    </li>\n                "); 
+}).join(''), "\n            </ul>\n        ");
     };
     LibraryService.prototype.getPaginatedBooks = function (page, itemsPerPage) {
         var startIndex = (page - 1) * itemsPerPage;
@@ -13513,7 +13542,9 @@ var LibraryService = /** @class */ (function () {
     };
     LibraryService.prototype.renderPaginatedBookList = function (page, itemsPerPage) {
         var books = this.getPaginatedBooks(page, itemsPerPage);
-        return "\n            <h2>\u0421\u043F\u0438\u0441\u043E\u043A \u041A\u043D\u0438\u0433</h2>\n            <ul class=\"list-group\">\n                ".concat(books.map(function (book) { return "<li title=\"Delete book\" class=\"list-group-item bookList d-flex justify-content-between align-items-center\" bookid=\"".concat(book.id, "\">\n                    ").concat(book.title, " by ").concat(book.author, " (").concat(book.year, ")\n                    <span title=\"Borrow book\" class=\"badge bg-").concat(book.available ? 'success' : 'danger', " rounded-pill borrowButton\">\n                        ").concat(book.available ? 'Доступно' : 'Позичено', "\n                    </span>\n                </li>"); }).join(''), "\n            </ul>\n            ").concat(this.renderPagination(page, itemsPerPage), "\n        ");
+        return "\n            <h2>\u0421\u043F\u0438\u0441\u043E\u043A \u041A\u043D\u0438\u0433</h2>\n            <ul class=\"list-group\">\n                ".concat(books.map(function (book) {
+ return "<li title=\"Delete book\" class=\"list-group-item bookList d-flex justify-content-between align-items-center\" bookid=\"".concat(book.id, "\">\n                    ").concat(book.title, " by ").concat(book.author, " (").concat(book.year, ")\n                    <span title=\"Borrow book\" class=\"badge bg-").concat(book.available ? 'success' : 'danger', " rounded-pill borrowButton\">\n                        ").concat(book.available ? 'Доступно' : 'Позичено', "\n                    </span>\n                </li>"); 
+}).join(''), "\n            </ul>\n            ").concat(this.renderPagination(page, itemsPerPage), "\n        ");
     };
     LibraryService.prototype.renderPagination = function (currentPage, itemsPerPage) {
         var totalBooks = this.library.getItems().length;
@@ -13553,7 +13584,9 @@ var Storage = /** @class */ (function () {
     };
     Storage.prototype.getBookById = function (id) {
         var books = this.getBooks();
-        return books.find(function (book) { return book.id === id; });
+        return books.find(function (book) {
+ return book.id === id; 
+});
     };
     Storage.prototype.saveUsers = function (users) {
         localStorage.setItem('users', JSON.stringify(users));
@@ -13564,7 +13597,9 @@ var Storage = /** @class */ (function () {
     };
     Storage.prototype.getUserById = function (id) {
         var users = this.getUsers();
-        return users.find(function (user) { return user.id === id; });
+        return users.find(function (user) {
+ return user.id === id; 
+});
     };
     return Storage;
 }());
@@ -13923,7 +13958,9 @@ var App = /** @class */ (function () {
     App.prototype.loadInitialData = function () {
         var _this = this;
         var savedBooks = this.storage.getBooks();
-        savedBooks.forEach(function (book) { return _this.library.addItem(new models_1.Book(book.id, book.title, book.author, book.year, book.available)); });
+        savedBooks.forEach(function (book) {
+ return _this.library.addItem(new models_1.Book(book.id, book.title, book.author, book.year, book.available)); 
+});
     };
     App.prototype.initializeApp = function () {
         document.body.innerHTML = "\n            <div class=\"container mt-4 col-md-12 justify-content-center d-flex flex-column\" id=\"app\">\n                <h1 class=\"mb-4\">\u0421\u0438\u0441\u0442\u0435\u043C\u0430 \u0423\u043F\u0440\u0430\u0432\u043B\u0456\u043D\u043D\u044F \u0411\u0456\u0431\u043B\u0456\u043E\u0442\u0435\u043A\u043E\u044E</h1>\n                <div class=\"input-group\">\n                    <div class=\"form-outline\" data-mdb-input-init>\n                        <input type=\"search\" id=\"search\" class=\"form-control\" />\n                        <label class=\"form-label\" for=\"form1\">\u041F\u043E\u0448\u0443\u043A</label>\n                    </div>\n                </div>\n                    <div >\n                        ".concat(this.renderBookForm(), "\n                    </div>\n                    <div id=\"bookList\">\n                        ").concat(this.libraryService.renderPaginatedBookList(this.currentPage, 3), "\n                    </div>\n                    <div>\n                        ").concat(this.renderUserForm(), "\n                    </div>\n                    <div  id=\"userList\">\n                        ").concat(this.libraryService.renderUserList(), "\n                    </div>\n            </div>\n        ");
@@ -13935,10 +13972,16 @@ var App = /** @class */ (function () {
         return "\n            <h2>\u0414\u043E\u0434\u0430\u0442\u0438 \u041A\u043D\u0438\u0433\u0443</h2>\n            <form id=\"bookForm\" class=\"border rounded\">\n                <div class=\"mb-3\">\n                    <label for=\"bookTitle\" class=\"form-label\">\u041D\u0430\u0437\u0432\u0430</label>\n                    <input type=\"text\" class=\"form-control\" id=\"bookTitle\">\n                    <span id=\"titleWarning\" style=\"display: none; font-size: 12px; color: red;\">\u0426\u0435 \u043F\u043E\u043B\u0435 \u0454 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0438\u043C</span>\n                </div>\n                <div class=\"mb-3\">\n                    <label for=\"bookAuthor\" class=\"form-label\">\u0410\u0432\u0442\u043E\u0440</label>\n                    <input type=\"text\" class=\"form-control\" id=\"bookAuthor\">\n                    <span id=\"authorWarning\" style=\"display: none; font-size: 12px; color: red;\">\u0426\u0435 \u043F\u043E\u043B\u0435 \u0454 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0438\u043C</span>\n                </div>\n                <div class=\"mb-3\">\n                    <label for=\"bookYear\" class=\"form-label\">\u0420\u0456\u043A</label>\n                    <input type=\"number\" min=\"0\" max=\"2024\" class=\"form-control\" id=\"bookYear\">\n                    <span id=\"yearWarning\" style=\"display: none; font-size: 12px; color: red;\">\u0426\u0435 \u043F\u043E\u043B\u0435 \u0454 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0438\u043C</span>\n                </div>\n                <button type=\"submit\" class=\"btn btn-primary\">\u0414\u043E\u0434\u0430\u0442\u0438 \u041A\u043D\u0438\u0433\u0443</button>\n            </form>\n        ";
     };
     App.prototype.renderUserForm = function () {
-        return "\n            <h2>\u0414\u043E\u0434\u0430\u0442\u0438 \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</h2>\n            <form id=\"userForm\" class=\"border rounded\">\n                <div class=\"mb-3\">\n                    <label for=\"userName\" class=\"form-label\">\u0406\u043C'\u044F \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</label>\n                    <input type=\"text\" class=\"form-control\" id=\"userName\">\n                    <span id=\"nameWarning\" style=\"display: none; font-size: 12px; color: red;\">\u0426\u0435 \u043F\u043E\u043B\u0435 \u0454 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0438\u043C</span>\n                </div>\n                <div class=\"mb-3\">\n                    <label for=\"userEmail\" class=\"form-label\">\u041F\u043E\u0448\u0442\u0430 \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</label>\n                    <input type=\"text\" class=\"form-control\" id=\"userEmail\">\n                    <span id=\"emailWarning\" style=\"display: none; font-size: 12px; color: red;\">\u0426\u0435 \u043F\u043E\u043B\u0435 \u0454 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0438\u043C</span>\n                </div>\n                <div class=\"mb-3\">\n                    <label for=\"userBooks\" class=\"form-label\">\u041A\u043D\u0438\u0436\u043A\u0438 \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</label>\n                    <ul class=\"list-group\" id=\"userBooksList\"></ul>\n                    <select class=\" form-select\" id=\"userBooks\">\n                        ".concat(this.library.getItems().filter(function (book) { return book.available; }).length === 0 ? '<option disabled="disabled" selected=true>Книжок не Знайдено</option>' :
+        return "\n            <h2>\u0414\u043E\u0434\u0430\u0442\u0438 \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</h2>\n            <form id=\"userForm\" class=\"border rounded\">\n                <div class=\"mb-3\">\n                    <label for=\"userName\" class=\"form-label\">\u0406\u043C'\u044F \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</label>\n                    <input type=\"text\" class=\"form-control\" id=\"userName\">\n                    <span id=\"nameWarning\" style=\"display: none; font-size: 12px; color: red;\">\u0426\u0435 \u043F\u043E\u043B\u0435 \u0454 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0438\u043C</span>\n                </div>\n                <div class=\"mb-3\">\n                    <label for=\"userEmail\" class=\"form-label\">\u041F\u043E\u0448\u0442\u0430 \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</label>\n                    <input type=\"text\" class=\"form-control\" id=\"userEmail\">\n                    <span id=\"emailWarning\" style=\"display: none; font-size: 12px; color: red;\">\u0426\u0435 \u043F\u043E\u043B\u0435 \u0454 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0438\u043C</span>\n                </div>\n                <div class=\"mb-3\">\n                    <label for=\"userBooks\" class=\"form-label\">\u041A\u043D\u0438\u0436\u043A\u0438 \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</label>\n                    <ul class=\"list-group\" id=\"userBooksList\"></ul>\n                    <select class=\" form-select\" id=\"userBooks\">\n                        ".concat(this.library.getItems().filter(function (book) {
+ return book.available; 
+}).length === 0 ? '<option disabled="disabled" selected=true>Книжок не Знайдено</option>' :
             '<option class="form-select-placeholder" disabled selected hidden>Оберіть Книжку</option>' + this.library.getItems()
-                .filter(function (book) { return book.available; })
-                .map(function (book) { return "<option value=\"".concat(book.id, "\">\u041A\u043D\u0438\u0433\u0430: ").concat(book.title, " by ").concat(book.author, "</option>"); }), "\n                    </select>\n                    <button class=\"btn btn-primary btn-sm\" id=\"addBookForUserButton\">\u0414\u043E\u0434\u0430\u0442\u0438 \u041A\u043D\u0438\u0436\u043A\u0443</button>\n                </div>\n                <button type=\"submit\" class=\"btn btn-primary\">\u0414\u043E\u0434\u0430\u0442\u0438 \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</button>\n            </form>\n        ");
+                .filter(function (book) {
+ return book.available; 
+})
+                .map(function (book) {
+ return "<option value=\"".concat(book.id, "\">\u041A\u043D\u0438\u0433\u0430: ").concat(book.title, " by ").concat(book.author, "</option>"); 
+}), "\n                    </select>\n                    <button class=\"btn btn-primary btn-sm\" id=\"addBookForUserButton\">\u0414\u043E\u0434\u0430\u0442\u0438 \u041A\u043D\u0438\u0436\u043A\u0443</button>\n                </div>\n                <button type=\"submit\" class=\"btn btn-primary\">\u0414\u043E\u0434\u0430\u0442\u0438 \u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0430</button>\n            </form>\n        ");
     };
     App.prototype.attachEventListeners = function () {
         this.attachEventListenersToBooksForm();
@@ -14014,8 +14057,12 @@ var App = /** @class */ (function () {
                     var newUser_1 = new models_1.User(Date.now(), nameInput.value, emailInput.value);
                     Array.from(document.getElementById('userBooksList')
                         .getElementsByTagName('li'))
-                        .map(function (el) { return _this.storage.getBookById(+el.id); })
-                        .forEach(function (el) { return _this.libraryService.borrowBook(newUser_1, el); });
+                        .map(function (el) {
+ return _this.storage.getBookById(+el.id); 
+})
+                        .forEach(function (el) {
+ return _this.libraryService.borrowBook(newUser_1, el); 
+});
                     _this.libraryService.addUser(newUser_1);
                     _this.initializeApp();
                 }
@@ -14035,7 +14082,9 @@ var App = /** @class */ (function () {
                 var userBooks = document.getElementById('userBooks');
                 var userBooksList = document.getElementById('userBooksList');
                 var bookId = userBooks.value;
-                var book = _this.library.getItems().find(function (b) { return b.id === +bookId; });
+                var book = _this.library.getItems().find(function (b) {
+ return b.id === +bookId; 
+});
                 if (book && userBooksList.querySelectorAll("li").length < 3) {
                     var array = Array.from(userBooks.selectedOptions);
                     array.forEach(function (option) {
@@ -14052,30 +14101,36 @@ var App = /** @class */ (function () {
     App.prototype.attachEventListenerToDeleteBookButtons = function () {
         var _this = this;
         var deleteBookButtons = document.getElementsByClassName('bookList');
-        Array.from(deleteBookButtons).forEach(function (el) { return el.addEventListener('click', function (e) {
+        Array.from(deleteBookButtons).forEach(function (el) {
+ return el.addEventListener('click', function (e) {
             _this.libraryService.removeBook(_this.storage.getBookById(+el.getAttribute('bookid')));
             _this.initializeApp();
             console.log("delete operation with book", el.getAttribute('bookid'));
-        }); });
+        }); 
+});
     };
     App.prototype.attachEventListenerToReturnBookButtons = function () {
         var _this = this;
         var deleteBookButtons = document.getElementsByClassName('userBook');
-        Array.from(deleteBookButtons).forEach(function (el) { return el.addEventListener('click', function (e) {
+        Array.from(deleteBookButtons).forEach(function (el) {
+ return el.addEventListener('click', function (e) {
             e.stopPropagation();
             _this.libraryService.returnBook(_this.storage.getUserById(+el.parentElement.parentElement.getAttribute('userid')), _this.storage.getBookById(+el.getAttribute('bookid')));
             _this.initializeApp();
             console.log("return operation with user", _this.storage.getUserById(+el.parentElement.parentElement.getAttribute('userid')));
-        }); });
+        }); 
+});
     };
     App.prototype.attachEventListenerToDeleteUserButtons = function () {
         var _this = this;
         var deleteBookButtons = document.getElementsByClassName('userList');
-        Array.from(deleteBookButtons).forEach(function (el) { return el.addEventListener('click', function (e) {
+        Array.from(deleteBookButtons).forEach(function (el) {
+ return el.addEventListener('click', function (e) {
             _this.libraryService.removeUser(_this.storage.getUserById(+el.getAttribute('userid')));
             _this.initializeApp();
             console.log("delete operation with user", el.getAttribute('userid'));
-        }); });
+        }); 
+});
     };
     App.prototype.attachEventListenerToSearchButton = function () {
         var _this = this;
@@ -14095,13 +14150,15 @@ var App = /** @class */ (function () {
     App.prototype.attachEventListenerToBorrowButtons = function () {
         var _this = this;
         var borrowButtons = document.getElementsByClassName('borrowButton');
-        Array.from(borrowButtons).forEach(function (el) { return el.addEventListener('click', function (e) {
+        Array.from(borrowButtons).forEach(function (el) {
+ return el.addEventListener('click', function (e) {
             e.stopPropagation();
             if (el.innerHTML.replace(/\s/g, '') == 'Доступно') {
                 _this.showPopup(_this.storage.getBookById(+el.parentElement.getAttribute('bookid')));
                 console.log("borrow operation");
             }
-        }); });
+        }); 
+});
     };
     App.prototype.showPopup = function (book) {
         var _this = this;
@@ -14140,11 +14197,13 @@ var App = /** @class */ (function () {
         }
     };
     App.prototype.attachEventListenerToCopyUserId = function () {
-        Array.from(document.getElementsByClassName('userNameSpan')).forEach(function (el) { return el.addEventListener('click', function (e) {
+        Array.from(document.getElementsByClassName('userNameSpan')).forEach(function (el) {
+ return el.addEventListener('click', function (e) {
             e.stopPropagation();
             var id = el.parentElement.parentElement.getAttribute('userid');
             navigator.clipboard.writeText(id);
-        }); });
+        }); 
+});
     };
     App.prototype.attachEventListenerToPaginationButtons = function () {
         var _this = this;

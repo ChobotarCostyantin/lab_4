@@ -1,8 +1,8 @@
-form{
+form {
     padding: 5px;
 }
 
-.col-md-6>.list-group .list-group-item:hover{
+.col-md-6>.list-group .list-group-item:hover {
     cursor: pointer;
     color: #721c24;
     background-color: #f5c6cb;
@@ -21,7 +21,7 @@ form{
     border-color: #a5997489;
 }
 
-.userNameSpan:hover{
+.userNameSpan:hover {
     color: gray;
 }
 
@@ -35,7 +35,7 @@ form{
     z-index: 999;
 }
 
-#userBooks{
+#userBooks {
     margin-top: 10px;
     margin-bottom: 5px;
 }
