@@ -12,12 +12,10 @@ class App {
     private libraryService: LibraryService;
     private storage: Storage;
 
-                private readonly itemsPerPage: number = 3;
+    private readonly itemsPerPage: number = 3;
     private currentPage: number = 1;
 
-
-
-            constructor() {
+    constructor() {
         this.storage = new Storage();
         this.library = new Library<Book>();
         this.libraryService = new LibraryService(this.library, this.storage);
@@ -140,7 +138,7 @@ class App {
         this.attachEventListenerToPaginationButtons();
     }
     private attachEventListenersToBooksForm() {
-        let bookForm = document.getElementById('bookForm') as HTMLFormElement;
+        const bookForm = document.getElementById('bookForm') as HTMLFormElement;
         if (bookForm) {
             bookForm.addEventListener('submit', e => {
                 e.preventDefault();
